@@ -18,3 +18,16 @@ jobs:
       with:
         name: hello-artifact
         path: hello.txt
+  download:
+    needs: build             # 👈 يتنفّذ بعد الـ build
+    runs-on: ubuntu-latest   # 👈 المطلوب
+
+    steps:
+      - name: Download text file
+        uses: actions/download-artifact@v4
+        with:
+          name: hello-artifact
+          path: ./artifacts   # 👈 يحفظ في مجلد ./artifacts
+
+      - name: Display content of the text file
+        run: cat ./artifacts/hello.txt      
